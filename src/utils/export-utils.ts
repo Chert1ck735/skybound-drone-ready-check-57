@@ -302,7 +302,6 @@ export const exportToPdf = async (report: SavedReport) => {
         useCORS: true,
         allowTaint: true,
         logging: false,
-        letterRendering: true, // Improves text rendering
         removeContainer: true, // Clean up after rendering
         backgroundColor: '#FFFFFF', // Ensure white background
         onclone: (clonedDoc) => {
@@ -311,9 +310,9 @@ export const exportToPdf = async (report: SavedReport) => {
           texts.forEach(node => {
             if (node instanceof HTMLElement) {
               node.style.textRendering = 'geometricPrecision';
-              node.style.fontSmooth = 'always';
-              node.style.webkitFontSmoothing = 'antialiased';
-              node.style.mozOsxFontSmoothing = 'grayscale';
+              (node.style as any).fontSmooth = 'always';
+              (node.style as any).webkitFontSmoothing = 'antialiased';
+              (node.style as any).mozOsxFontSmoothing = 'grayscale';
             }
           });
         }
